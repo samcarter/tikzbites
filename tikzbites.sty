@@ -1,0 +1,130 @@
+% !TeX root = ./test.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% The TikZbits package 
+% A package to draw yummy things with tikz 
+% Maintained by samcarter
+%
+% Project repository and bug tracker:
+% https://github.com/samcarter/tikzbites
+%
+% Released under the LaTeX Project Public License v1.3c or later
+% See http://www.latex-project.org/lppl.txt
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{tikzbites}[2020/10/27 version v0.1 Drawing some yummy things in TikZ]
+
+\RequirePackage{tikz}
+
+\newif\iftikzbites@sprinkles
+\newif\iftikzbites@cream
+\newif\iftikzbites@candle
+\newif\iftikzbites@cherry
+\newif\iftikzbites@icing
+\newif\iftikzbites@garnish
+
+\def\tikzbites@multistring{multi}
+
+\newcommand*{\cupcake}[1][]{%
+  \begin{scope}%
+    \tikzset{/cupcake/.cd,#1}%
+    \cupcake@draw%
+  \end{scope}%
+}
+
+\newcommand*{\doughnut}[1][]{%
+  \begin{scope}%
+    \tikzset{/doughnut/.cd,#1}%
+    \doughnut@draw%
+  \end{scope}%
+}
+
+\tikzset{
+  /cupcake/.search also={/tikz,/pgf,/thing},
+  /cupcake/.cd,
+    cake/.code         = \def\tikzbites@cakecol{#1},
+    cake               = brown!70!black,
+    paper/.code        = \def\tikzbites@papercol{#1},
+    paper              = orange,
+    cream/.code        = \tikzbites@creamtrue
+                         \def\tikzbites@creamcol{#1},
+    cream/.default     = white!80!brown,     
+    candle/.code       = \tikzbites@candletrue
+                         \def\tikzbites@candlecol{#1},
+    candle/.default    = teal,      
+    icing/.code        = \tikzbites@icingtrue
+                         \def\tikzbites@icingcol{#1},
+    icing/.default     = red!40!white,                     
+    cherry/.code       = \tikzbites@cherrytrue , 
+  /doughnut/.search also={/tikz,/pgf},
+  /doughnut/.cd,
+    sprinkles/.code      = \tikzbites@sprinklestrue
+                           \def\tikzbites@sprinklescol{#1},
+    sprinkles/.default   = multi,  
+    icing/.code          = \tikzbites@icingtrue
+                           \def\tikzbites@icing{#1},
+    icing/.default       = violet, 
+    garnish/.code        = \tikzbites@garnishtrue
+                           \def\tikzbites@garnishcol{#1},
+    garnish/.default     = brown!50!black,       
+}
+
+\def\cupcake@draw{%
+    %
+    % cake
+    \fill[\tikzbites@cakecol] (1.0966,-0.3858) .. controls (1.0966,-0.6255) and (0.8500,-0.5988) .. (0.5738,-0.5988) .. controls (0.2976,-0.5988) and (0.0283,-0.5972) .. (0.0283,-0.3575) .. controls (0.0283,-0.1177) and (0.2919,-0.0084) .. (0.5681,-0.0084) .. controls (0.8443,-0.0084) and (1.0966,-0.1461) .. (1.0966,-0.3858) -- cycle;
+    %
+    % paper
+    \fill[\tikzbites@papercol] (0.1908,-1.1091) -- (0.2770,-1.1438) -- (0.3723,-1.1693) -- (0.4735,-1.1854) -- (0.5777,-1.1920) -- (0.6819,-1.1887) -- (0.7831,-1.1754) -- (0.8783,-1.1518) -- (0.9644,-1.1178) -- (1.0687,-0.4832) -- (0.9622,-0.5625) -- (0.8447,-0.5254) -- (0.7190,-0.5946) -- (0.5880,-0.5448) -- (0.4547,-0.5989) -- (0.3218,-0.5313) -- (0.1923,-0.5650) .. controls (0.1923,-0.5650) and (0.1088,-0.4882) .. (0.0691,-0.4745) -- cycle;
+    \fill[\tikzbites@papercol!70!white] (0.9622,-0.5625) -- (0.8447,-0.5254) -- (0.7831,-1.1754) .. controls (0.8160,-1.1692) and (0.8479,-1.1614) .. (0.8783,-1.1518) -- cycle(0.7190,-0.5946) -- (0.5880,-0.5448) -- (0.5777,-1.1920) .. controls (0.6126,-1.1925) and (0.6475,-1.1914) .. (0.6819,-1.1887) -- cycle(0.0691,-0.4745) -- (0.1908,-1.1091) .. controls (0.2177,-1.1221) and (0.2466,-1.1337) .. (0.2770,-1.1438) -- (0.1923,-0.5650) .. controls (0.1923,-0.5650) and (0.1088,-0.4882) .. (0.0691,-0.4745) -- cycle(0.4547,-0.5989) -- (0.3218,-0.5313) -- (0.3723,-1.1693) .. controls (0.4052,-1.1762) and (0.4391,-1.1816) .. (0.4735,-1.1854) -- cycle;
+    %
+    % cream
+    \iftikzbites@cream
+      \shade[bottom color=\tikzbites@creamcol!80!black, top color=\tikzbites@creamcol] (-0.0006,-0.2983) .. controls (0.0384,-0.0436) and (1.1885,0.0531) .. (1.1213,-0.2983) .. controls (1.0542,-0.6496) and (-0.0397,-0.5530) .. (-0.0006,-0.2983) -- cycle;
+      \shade[bottom color=\tikzbites@creamcol!80!black, top color=\tikzbites@creamcol] (0.0544,-0.1310) .. controls (0.1155,0.0781) and (1.0505,0.2007) .. (1.0203,-0.1130) .. controls (0.9902,-0.4267) and (-0.0068,-0.3400) .. (0.0544,-0.1310) -- cycle;
+      \shade[bottom color=\tikzbites@creamcol!80!black, top color=\tikzbites@creamcol] (0.658, 0.343) .. controls (0.4945, 0.3937) and (0.1504, 0.23010000000000003) .. (0.202, 0.037000000000000005) .. controls (0.2536, -0.15610000000000002) and (0.7031, -0.1725) .. (0.814, -0.035) .. controls (0.925, 0.1025) and (0.5095, 0.08829999999999998) .. (0.658, 0.343) -- cycle;
+    \fi  
+    % 
+    % icing
+    \iftikzbites@icing
+      \fill[\tikzbites@icingcol] (1.0966,-0.3769) .. controls (1.0310,-0.5432) and (0.9599,-0.3729) .. (0.8991,-0.3806) .. controls (0.8510,-0.3922) and (0.7886,-0.4927) .. (0.7267,-0.4940) .. controls (0.6647,-0.4952) and (0.6258,-0.3859) .. (0.5568,-0.3859) .. controls (0.2284,-0.3456) and (0.3629,-0.4659) .. (0.3278,-0.4684) .. controls (0.2737,-0.4724) and (0.2856,-0.3966) .. (0.1767,-0.3797) .. controls (0.1323,-0.3728) and (0.0283,-0.4085) .. (0.0283,-0.3485) .. controls (0.0283,-0.1088) and (0.2919,0.0005) .. (0.5681,0.0005) .. controls (0.8443,0.0005) and (1.0966,-0.1372) .. (1.0966,-0.3769) -- cycle;
+    \fi
+    %
+    % candle
+    \iftikzbites@candle
+      \fill[\tikzbites@candlecol] (0.5207,0.6088) -- (0.6171,0.6088) -- (0.6171,-0.0657) -- (0.5207,-0.0657) -- cycle;
+      \fill[yellow!95!red] (0.5239,0.9460) .. controls (0.5752,0.9835) and (0.6833,0.8626) .. (0.6671,0.7199) .. controls (0.6509,0.5772) and (0.5097,0.5651) .. (0.4749,0.6667) .. controls (0.4400,0.7683) and (0.5705,0.7578) .. (0.5239,0.9460) -- cycle;
+    \fi
+    %
+    % cherry
+    \iftikzbites@cherry
+      \draw[green!50!black,line width=1pt] (0.4414,0.4723) .. controls (0.5894,0.3381) and (0.6294,0.2694) .. (0.5491,0.0812);
+      \fill[red!80!black] (0.7701,0.1124) .. controls (0.7733,-0.0018) and (0.6800,-0.0945) .. (0.5689,-0.0945) .. controls (0.4578,-0.0945) and (0.3703,-0.0018) .. (0.3677,0.1124) .. controls (0.3627,0.3287) and (0.5042,0.2286) .. (0.5746,0.2286) .. controls (0.6744,0.2343) and (0.7644,0.3173) .. (0.7701,0.1124) -- cycle;
+    \fi
+}
+
+\def\doughnut@draw{%
+  \fill[brown,even odd rule] (5.53,5.14) ellipse[x radius=0.83, y radius=0.56] (5.56,5.2) ellipse[x radius=0.2, y radius=0.06];
+  \iftikzbites@icing
+    \fill[\tikzbites@icing] (5.7998,5.2783) .. controls (5.7998,5.1847) and (5.6816,5.1324) .. (5.5553,5.1324) .. controls (5.4290,5.1324) and (5.3187,5.1847) .. (5.3187,5.2783) .. controls (5.3187,5.3720) and (5.4211,5.4163) .. (5.5474,5.4163) .. controls (5.6737,5.4163) and (5.7998,5.3720) .. (5.7998,5.2783) -- cycle(5.5277,5.7318) .. controls (5.0726,5.7318) and (4.7351,5.4797) .. (4.7036,5.2744) .. controls (4.7036,5.2112) and (4.7159,5.1409) .. (4.7683,5.0964) .. controls (4.9441,4.9470) and (4.9493,4.7321) .. (5.0238,4.6907) .. controls (5.0984,4.6493) and (5.0746,4.8945) .. (5.2069,4.8529) .. controls (5.5056,4.7591) and (5.4060,4.6356) .. (5.5198,4.6356) .. controls (5.6336,4.6356) and (5.4991,4.7678) .. (5.8485,4.8529) .. controls (6.0048,4.8910) and (6.0359,4.8070) .. (6.1105,4.8484) .. controls (6.1850,4.8898) and (6.1186,4.9082) .. (6.2871,5.0963) .. controls (6.3627,5.1808) and (6.3519,5.2112) .. (6.3519,5.2744) .. controls (6.2888,5.4797) and (5.9829,5.7318) .. (5.5277,5.7318) -- cycle;
+  \fi
+  \iftikzbites@garnish
+     \draw[\tikzbites@garnishcol, line width=0.5] (4.8140,5.4006) .. controls (4.7837,5.3328) and (4.7784,5.2541) .. (4.7994,5.1829) .. controls (4.8033,5.1698) and (4.8082,5.1565) .. (4.8173,5.1462) .. controls (4.8218,5.1411) and (4.8273,5.1368) .. (4.8336,5.1341) .. controls (4.8399,5.1314) and (4.8470,5.1304) .. (4.8538,5.1317) .. controls (4.8601,5.1330) and (4.8659,5.1363) .. (4.8707,5.1406) .. controls (4.8754,5.1450) and (4.8792,5.1504) .. (4.8820,5.1562) .. controls (4.8877,5.1678) and (4.8900,5.1807) .. (4.8932,5.1933) .. controls (4.9057,5.2426) and (4.9320,5.2871) .. (4.9579,5.3309) .. controls (4.9838,5.3747) and (5.0099,5.4194) .. (5.0220,5.4689) .. controls (5.0254,5.4827) and (5.0278,5.4973) .. (5.0354,5.5093) .. controls (5.0392,5.5154) and (5.0444,5.5207) .. (5.0507,5.5240) .. controls (5.0571,5.5273) and (5.0647,5.5284) .. (5.0715,5.5263) .. controls (5.0775,5.5245) and (5.0826,5.5204) .. (5.0861,5.5152) .. controls (5.0896,5.5100) and (5.0914,5.5038) .. (5.0920,5.4976) .. controls (5.0931,5.4851) and (5.0891,5.4728) .. (5.0848,5.4611) .. controls (5.0504,5.3671) and (4.9924,5.2828) .. (4.9613,5.1877) .. controls (4.9552,5.1690) and (4.9501,5.1491) .. (4.9535,5.1298) .. controls (4.9552,5.1201) and (4.9591,5.1107) .. (4.9655,5.1032) .. controls (4.9718,5.0957) and (4.9808,5.0902) .. (4.9905,5.0887) .. controls (4.9970,5.0877) and (5.0037,5.0885) .. (5.0100,5.0906) .. controls (5.0163,5.0926) and (5.0221,5.0959) .. (5.0274,5.0998) .. controls (5.0380,5.1077) and (5.0465,5.1179) .. (5.0555,5.1276) .. controls (5.0777,5.1513) and (5.1032,5.1719) .. (5.1245,5.1964) .. controls (5.1583,5.2352) and (5.1805,5.2825) .. (5.2030,5.3288) .. controls (5.2246,5.3731) and (5.2470,5.4172) .. (5.2657,5.4628) .. controls (5.2803,5.4987) and (5.2927,5.5356) .. (5.3117,5.5694) .. controls (5.3306,5.6031) and (5.3571,5.6341) .. (5.3922,5.6504) .. controls (5.4024,5.6551) and (5.4133,5.6586) .. (5.4245,5.6595) .. controls (5.4357,5.6604) and (5.4473,5.6587) .. (5.4573,5.6536) .. controls (5.4681,5.6481) and (5.4769,5.6388) .. (5.4826,5.6281) .. controls (5.4883,5.6174) and (5.4910,5.6052) .. (5.4916,5.5930) .. controls (5.4925,5.5705) and (5.4858,5.5482) .. (5.4765,5.5277) .. controls (5.4611,5.4942) and (5.4386,5.4645) .. (5.4155,5.4357) .. controls (5.3807,5.3923) and (5.3442,5.3502) .. (5.3102,5.3062) .. controls (5.2571,5.2374) and (5.2086,5.1599) .. (5.2015,5.0733) .. controls (5.2006,5.0620) and (5.2004,5.0505) .. (5.2027,5.0394) .. controls (5.2050,5.0283) and (5.2100,5.0175) .. (5.2183,5.0098) .. controls (5.2283,5.0003) and (5.2426,4.9960) .. (5.2564,4.9967) .. controls (5.2702,4.9974) and (5.2835,5.0029) .. (5.2949,5.0108) .. controls (5.3176,5.0265) and (5.3324,5.0509) .. (5.3486,5.0733) .. controls (5.3670,5.0988) and (5.3879,5.1224) .. (5.4110,5.1437) -- (5.4116,5.1490) -- (5.4111,5.1539)(5.5609,5.4274) .. controls (5.5976,5.4672) and (5.6267,5.5140) .. (5.6461,5.5645) .. controls (5.6534,5.5833) and (5.6595,5.6031) .. (5.6724,5.6185) .. controls (5.6789,5.6263) and (5.6870,5.6328) .. (5.6964,5.6363) .. controls (5.7059,5.6398) and (5.7166,5.6402) .. (5.7259,5.6364) .. controls (5.7355,5.6324) and (5.7430,5.6243) .. (5.7476,5.6150) .. controls (5.7523,5.6057) and (5.7544,5.5953) .. (5.7555,5.5850) .. controls (5.7593,5.5512) and (5.7533,5.5163) .. (5.7384,5.4856) .. controls (5.7235,5.4550) and (5.6998,5.4287) .. (5.6708,5.4108)(5.5080,5.1246) .. controls (5.4881,5.1100) and (5.4752,5.0863) .. (5.4737,5.0617) .. controls (5.4722,5.0370) and (5.4822,5.0119) .. (5.5002,4.9951) .. controls (5.5166,4.9798) and (5.5389,4.9715) .. (5.5613,4.9707) .. controls (5.5848,4.9699) and (5.6081,4.9769) .. (5.6287,4.9881) .. controls (5.6493,4.9994) and (5.6674,5.0146) .. (5.6843,5.0310) .. controls (5.7434,5.0883) and (5.7876,5.1598) .. (5.8192,5.2359) .. controls (5.8385,5.2825) and (5.8532,5.3309) .. (5.8648,5.3800) .. controls (5.8717,5.4096) and (5.8776,5.4399) .. (5.8909,5.4674) .. controls (5.8975,5.4811) and (5.9060,5.4940) .. (5.9168,5.5048) .. controls (5.9275,5.5156) and (5.9406,5.5242) .. (5.9552,5.5288) .. controls (5.9659,5.5321) and (5.9773,5.5332) .. (5.9884,5.5315) .. controls (5.9995,5.5298) and (6.0102,5.5251) .. (6.0187,5.5178) .. controls (6.0294,5.5086) and (6.0363,5.4955) .. (6.0393,5.4818) .. controls (6.0424,5.4680) and (6.0418,5.4536) .. (6.0392,5.4398) .. controls (6.0339,5.4121) and (6.0207,5.3866) .. (6.0123,5.3597) .. controls (6.0010,5.3235) and (5.9984,5.2852) .. (5.9928,5.2477) .. controls (5.9873,5.2101) and (5.9781,5.1719) .. (5.9557,5.1413) .. controls (5.9449,5.1264) and (5.9312,5.1137) .. (5.9210,5.0984) .. controls (5.9159,5.0908) and (5.9117,5.0824) .. (5.9094,5.0735) .. controls (5.9072,5.0646) and (5.9070,5.0550) .. (5.9098,5.0463) .. controls (5.9122,5.0387) and (5.9168,5.0318) .. (5.9227,5.0264) .. controls (5.9286,5.0210) and (5.9357,5.0171) .. (5.9433,5.0144) .. controls (5.9569,5.0097) and (5.9719,5.0094) .. (5.9860,5.0127) .. controls (6.0001,5.0160) and (6.0132,5.0227) .. (6.0248,5.0315) .. controls (6.0478,5.0489) and (6.0641,5.0737) .. (6.0785,5.0987) .. controls (6.0944,5.1265) and (6.1086,5.1551) .. (6.1238,5.1833) .. controls (6.1496,5.2311) and (6.1784,5.2774) .. (6.2099,5.3217);
+   \fi
+   \iftikzbites@sprinkles
+     \begin{scope}
+      \clip (5.7998,5.2783) .. controls (5.7998,5.1847) and (5.6816,5.1324) .. (5.5553,5.1324) .. controls (5.4290,5.1324) and (5.3187,5.1847) .. (5.3187,5.2783) .. controls (5.3187,5.3720) and (5.4211,5.4163) .. (5.5474,5.4163) .. controls (5.6737,5.4163) and (5.7998,5.3720) .. (5.7998,5.2783) -- cycle(5.5277,5.7318) .. controls (5.0726,5.7318) and (4.7351,5.4797) .. (4.7036,5.2744) .. controls (4.7036,5.2112) and (4.7159,5.1409) .. (4.7683,5.0964) .. controls (4.9441,4.9470) and (4.9493,4.7321) .. (5.0238,4.6907) .. controls (5.0984,4.6493) and (5.0746,4.8945) .. (5.2069,4.8529) .. controls (5.5056,4.7591) and (5.4060,4.6356) .. (5.5198,4.6356) .. controls (5.6336,4.6356) and (5.4991,4.7678) .. (5.8485,4.8529) .. controls (6.0048,4.8910) and (6.0359,4.8070) .. (6.1105,4.8484) .. controls (6.1850,4.8898) and (6.1186,4.9082) .. (6.2871,5.0963) .. controls (6.3627,5.1808) and (6.3519,5.2112) .. (6.3519,5.2744) .. controls (6.2888,5.4797) and (5.9829,5.7318) .. (5.5277,5.7318) -- cycle;
+        \foreach \x in {1,...,400} {
+          \ifx\tikzbites@sprinklescol\tikzbites@multistring
+            \pgfmathsetmacro{\tikzbites@R}{rnd}%
+            \pgfmathsetmacro{\tikzbites@G}{rnd}%
+            \pgfmathsetmacro{\tikzbites@B}{rnd}%
+            \definecolor{tikzbites@randomcol}{rgb}{\tikzbites@R,\tikzbites@G,\tikzbites@B}%
+            \draw[tikzbites@randomcol] (rnd*2+4.5,rnd*1.3+4.5) -- ++(rnd*360:0.05);
+          \else
+            \draw[\tikzbites@sprinklescol] (rnd*2+4.5,rnd*1.3+4.5) -- ++(rnd*360:0.05);
+          \fi
+        }
+      \end{scope}
+    \fi
+}
